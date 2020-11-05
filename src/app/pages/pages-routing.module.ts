@@ -9,6 +9,9 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import {AuthGuard} from '../guards/auth.guard';
 import { PerfilComponent } from './perfil/perfil.component';
+import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
+import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
+import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
 const routes: Routes = [
     {path: 'dashboard', component: PagesComponent,canActivate:[AuthGuard],
   children: [
@@ -18,7 +21,10 @@ const routes: Routes = [
     {path: 'account-settings', component: AccountSettingsComponent, data: {titulo: 'Account Settings'}},
     {path: 'promesas', component: PromesasComponent, data: {titulo: 'Promesas'}},
     {path: 'rxjs', component: RxjsComponent, data: {titulo: 'RXJS'}},
-    {path: 'perfil', component: PerfilComponent, data: {titulo: 'Perfil de Usuario'}}
+    {path: 'perfil', component: PerfilComponent, data: {titulo: 'Perfil de Usuario'}},
+    {path: 'usuarios', component: UsuariosComponent, data: {titulo: 'Usuarios de Aplicacion'}},
+    {path: 'hospitales', component: HospitalesComponent, data: {titulo: 'Hospitales'}},
+    {path: 'medicos', component: MedicosComponent, data: {titulo: 'Medicos'}}
   ]
   },
   ];

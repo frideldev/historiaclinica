@@ -6,7 +6,8 @@ import {LoginForm} from '../interfaces/login-form.interface';
 import { environment } from 'src/environments/environment';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
-import {Usuario} from '../models/usuario.model'
+import {Usuario} from '../models/usuario.model';
+import {CargarUsuario} from '../interfaces/cargar-usuario.interface';
 const base_url = environment.base_url;
 declare const gapi:any;
 @Injectable({
@@ -23,6 +24,9 @@ export class UsuarioService {
   }
   get uid():string{
     return this.usuario.uid || '';
+  }
+  get headers(){
+     return {headers: {'x-token': this.token}};
   }
   googleInit(){
     return new Promise(resolve=>{
@@ -62,22 +66,40 @@ export class UsuarioService {
     catchError(error=>of(false)));
   }
   crearUsuario(formData: RegisterForm){
-    return this.http.post(`${base_url}/usuarios`, formData).pipe(tap((resp:any) => {
+    return this.http.post(`${base_url}/usuarios`, formData).pipe(tap((resp: any) => {
       localStorage.setItem('token', resp.token);
     }));
   }
-  actualizarPerfil(data:{email: string, nombre: string, role: string}){
-    data ={...data, role: this.usuario.role};
-    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, {headers: {'x-token': this.token}});
+  actualizarPerfil(data: {email: string, nombre: string, role: string}){
+    data = {
+      ...data,
+      role: this.usuario.role
+    }
+    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, this.headers);
   }
   login(formData: LoginForm){
-   return this.http.post(`${base_url}/login`, formData).pipe(tap((resp:any) => {
+   return this.http.post(`${base_url}/login`, formData).pipe(tap((resp: any) => {
      localStorage.setItem('token', resp.token);
    }));
   }
   loginGoogle(token){
-    return this.http.post(`${base_url}/login/google`, {token}).pipe(tap((resp:any) => {
+    return this.http.post(`${base_url}/login/google`, {token}).pipe(tap((resp: any) => {
       localStorage.setItem('token', resp.token);
     }));
    }
+   cargarUsuarios(desde: number= 0){
+     return this.http.get<CargarUsuario>(`${base_url}/usuarios?desde=${desde}`, this.headers).pipe(map(resp=>{
+      const usuarios = resp.usuarios.map(user => new Usuario(user.nombre,user.email,'',user.role,user.google,user.img,user.uid));
+      return {
+        total: resp.total,
+        usuarios
+      };
+     }));
+   }
+   eliminarUsuario(usuario:Usuario){
+    return this.http.delete(`${base_url}/usuarios/${usuario.uid}`, this.headers);
+   }
+   actualizarRole(usuario:Usuario){
+    return this.http.put(`${base_url}/usuarios/${usuario.uid}`, usuario, this.headers);
+  }
 }
