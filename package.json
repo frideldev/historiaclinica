@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/schematics": "^11.0.0",
     "@angular/animations": "~11.0.0",
     "@angular/common": "~11.0.0",
     "@angular/compiler": "~11.0.0",
@@ -22,7 +23,7 @@
     "chart.js": "^2.9.4",
     "ng2-charts": "^2.4.2",
     "rxjs": "~6.6.3",
-    "sweetalert2": "^10.8.1",
+    "sweetalert2": "^10.10.0",
     "tslib": "^2.0.0",
     "unirest": "^0.6.0",
     "zone.js": "~0.10.3"
@@ -31,9 +32,9 @@
     "@angular-devkit/build-angular": "~0.1100.0",
     "@angular/cli": "~11.0.0",
     "@angular/compiler-cli": "~11.0.0",
-    "@types/node": "^12.11.1",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^12.19.4",
     "codelyzer": "^6.0.0-next.1",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~5.0.0",
