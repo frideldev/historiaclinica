@@ -7,10 +7,12 @@ import {PagesModule} from './pages/pages.module';
 import {AuthModule} from './auth/auth.module';
 import { AuthRoutingModule } from './auth/auth-routing.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,
-    NopagefoundComponent
+    NopagefoundComponent,
+  
   ],
   imports: [
     BrowserModule,

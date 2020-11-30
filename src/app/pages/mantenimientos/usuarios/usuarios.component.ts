@@ -52,8 +52,8 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     if(termino.length === 0){
       return this.usuarios = this.usuariosTemp;
     }
-   this.busquedasService.buscar('usuarios', termino)
-  .subscribe(resp => this.usuarios = resp);
+    this.busquedasService.buscar('usuarios', termino)
+  .subscribe(resp => {this.usuarios = resp as Usuario[]; });
   }
   eliminarUsuario(usuario: Usuario){
     if(usuario.uid===this.usuarioService.uid){
